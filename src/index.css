@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-zentro-bg: #0F172A;
+  --color-zentro-card: #111827;
+  --color-zentro-positive: #10B981;
+  --color-zentro-negative: #EF4444;
+  --color-zentro-highlight: #5B21B6;
+  --color-zentro-text-main: #E5E7EB;
+  --color-zentro-text-secondary: #9CA3AF;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+}
+
+@layer base {
+  body {
+    @apply bg-zentro-bg text-zentro-text-main font-sans antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .zentro-card {
+    @apply bg-zentro-card rounded-xl shadow-lg border border-white/5 p-4;
+  }
+  .zentro-btn-primary {
+    @apply bg-zentro-highlight text-white px-6 py-3 rounded-xl font-medium transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2;
+  }
+  .zentro-text-secondary {
+    @apply text-zentro-text-secondary;
+  }
+}
+
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
