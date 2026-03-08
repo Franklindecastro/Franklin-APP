@@ -61,11 +61,11 @@ export const Settings = ({ preferences, onUpdate, onExportBackup, onRestoreBacku
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
       <div>
-        <h2 className="text-3xl font-bold tracking-tight">Configurações</h2>
-        <p className="text-muted">Personalize sua experiência e gerencie preferências.</p>
+        <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Configurações</h2>
+        <p className="text-sm text-muted">Personalize sua experiência e gerencie preferências.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

@@ -542,7 +542,7 @@ export const MarketPurchases = ({
                   ))}
                 </Pie>
                 <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+                  contentStyle={{ backgroundColor: '#1E2A38', borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
                 />
               </PieChart>
             </ResponsiveContainer>
@@ -559,7 +559,7 @@ export const MarketPurchases = ({
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#8E9299', fontSize: 12}} />
                 <YAxis axisLine={false} tickLine={false} tick={{fill: '#8E9299', fontSize: 12}} />
                 <Tooltip 
-                  contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+                  contentStyle={{ backgroundColor: '#1E2A38', borderRadius: '12px', border: 'none', boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
                 />
                 <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                   <Cell fill="#1E2A38" />
@@ -576,27 +576,27 @@ export const MarketPurchases = ({
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-black tracking-tighter uppercase">Mercado</h2>
-          <p className="text-muted font-medium">Gerencie seus gastos com supermercado e analise seu consumo.</p>
+          <h2 className="text-2xl sm:text-3xl font-black tracking-tighter uppercase">Mercado</h2>
+          <p className="text-sm text-muted font-medium">Gerencie seus gastos com supermercado e analise seu consumo.</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-wrap gap-3 w-full sm:w-auto">
           <button 
             onClick={() => setView('analysis')}
-            className="px-6 py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all flex items-center gap-2 text-sm font-bold uppercase tracking-widest"
+            className="flex-1 sm:flex-none px-6 py-3 bg-white/5 border border-white/10 rounded-xl hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-widest"
           >
             <BarChartIcon size={18} />
             <span>Análise</span>
           </button>
-          <div className="relative group">
+          <div className="relative group flex-1 sm:flex-none">
             <button 
-              className="btn-primary flex items-center gap-2 px-6 py-3"
+              className="btn-primary flex items-center justify-center gap-2 px-6 py-3 w-full"
             >
               <Plus size={18} />
               <span className="text-sm font-black uppercase tracking-widest">Novo</span>
             </button>
-            <div className="absolute right-0 top-full mt-2 w-56 bg-surface rounded-2xl shadow-2xl border border-white/10 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 backdrop-blur-xl">
+            <div className="absolute right-0 top-full mt-2 w-56 bg-surface rounded-2xl shadow-2xl border border-white/10 py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all z-50 backdrop-blur-xl">
               <button 
                 onClick={() => setView('new')}
                 className="w-full text-left px-4 py-3 hover:bg-white/5 flex items-center gap-3 transition-colors"
@@ -625,10 +625,10 @@ export const MarketPurchases = ({
         <motion.div 
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="card bg-secondary/5 border-secondary/20 flex flex-col md:flex-row justify-between items-center gap-4"
+          className="card bg-secondary/5 border-secondary/20 flex flex-col sm:flex-row justify-between items-center gap-4"
         >
-          <div className="flex items-center gap-4">
-            <div className="p-4 bg-secondary text-white rounded-2xl shadow-lg shadow-secondary/20">
+          <div className="flex items-center gap-4 w-full sm:w-auto">
+            <div className="p-4 bg-secondary text-white rounded-2xl shadow-lg shadow-secondary/20 shrink-0">
               <ListTodo size={28} />
             </div>
             <div>
@@ -640,7 +640,7 @@ export const MarketPurchases = ({
           </div>
           <button 
             onClick={() => setView('shopping-list')}
-            className="px-6 py-3 bg-surface border border-white/10 rounded-xl font-black uppercase tracking-widest text-xs hover:bg-white/5 transition-all flex items-center gap-2"
+            className="w-full sm:w-auto px-6 py-3 bg-surface border border-white/10 rounded-xl font-black uppercase tracking-widest text-xs hover:bg-white/5 transition-all flex items-center justify-center gap-2"
           >
             <span>Abrir Lista</span>
             <ChevronRight size={16} />
@@ -650,7 +650,7 @@ export const MarketPurchases = ({
 
       {/* Budget Control Card */}
       <div className="card bg-surface border-white/5">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div className="flex items-center gap-4">
             <div className="p-3 bg-accent/10 text-accent rounded-xl">
               <ShoppingCart size={24} />
@@ -660,7 +660,7 @@ export const MarketPurchases = ({
               <p className="text-[10px] text-muted font-black uppercase tracking-widest">Meta: R${preferences.marketBudget.toLocaleString()}</p>
             </div>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right">
             <p className="text-2xl font-black text-ink">R${stats.totalMarketExpenses.toLocaleString()}</p>
             <p className="text-[10px] text-muted font-black uppercase tracking-widest">{stats.marketBudgetProgress.toFixed(1)}% utilizado</p>
           </div>

@@ -20,24 +20,24 @@ export const Auth = ({ onLogin }: AuthProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-6 text-ink">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4 sm:p-6 text-ink">
       <div className="w-full max-w-md">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <motion.div 
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            className="inline-flex items-center justify-center p-4 bg-accent rounded-3xl mb-6 shadow-2xl shadow-accent/30"
+            className="inline-flex items-center justify-center p-4 bg-accent rounded-3xl mb-4 sm:mb-6 shadow-2xl shadow-accent/30"
           >
-            <Wallet className="text-white" size={40} />
+            <Wallet className="text-white" size={32} />
           </motion.div>
-          <h1 className="text-4xl font-black tracking-tighter text-ink mb-2 uppercase">ZENTRO</h1>
-          <p className="text-muted font-medium tracking-wide">Domine seu fluxo financeiro com inteligência.</p>
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tighter text-ink mb-2 uppercase">ZENTRO</h1>
+          <p className="text-xs sm:text-sm text-muted font-medium tracking-wide">Domine seu fluxo financeiro com inteligência.</p>
         </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          className="card p-8 border-white/10 bg-surface/50 backdrop-blur-xl"
+          className="card p-6 sm:p-8 border-white/10 bg-surface/50 backdrop-blur-xl"
         >
           <div className="flex gap-4 mb-10 bg-background/50 p-1 rounded-2xl border border-white/5">
             <button 

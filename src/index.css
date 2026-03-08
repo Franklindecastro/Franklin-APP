@@ -1,48 +1,67 @@
 @import "tailwindcss";
 
 @theme {
-  --color-zentro-bg: #0F172A;
-  --color-zentro-card: #111827;
-  --color-zentro-positive: #10B981;
-  --color-zentro-negative: #EF4444;
-  --color-zentro-highlight: #5B21B6;
-  --color-zentro-text-main: #E5E7EB;
-  --color-zentro-text-secondary: #9CA3AF;
+  /* Old Palette Variables */
+  --color-primary: #1E2A38;
+  --color-secondary: #00C853;
+  --color-error: #FF5252;
+  --color-accent: #7C3AED;
+  --color-surface: #1E2A38;
+  --color-background: #0F172A;
+  --color-ink: #FFFFFF;
+  --color-muted: #8E9299;
+
+  /* Mapping Zentro variables to Old Palette for compatibility */
+  --color-zentro-bg: var(--color-background);
+  --color-zentro-card: var(--color-surface);
+  --color-zentro-positive: var(--color-secondary);
+  --color-zentro-negative: var(--color-error);
+  --color-zentro-highlight: var(--color-accent);
+  --color-zentro-text-main: var(--color-ink);
+  --color-zentro-text-secondary: var(--color-muted);
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
   --radius-xl: 16px;
   --radius-2xl: 24px;
+  --radius-3xl: 32px;
+  --breakpoint-xs: 375px;
 }
 
 @layer base {
   body {
-    @apply bg-zentro-bg text-zentro-text-main font-sans antialiased;
+    @apply bg-background text-ink font-sans antialiased;
     -webkit-tap-highlight-color: transparent;
   }
 }
 
 @layer components {
-  .zentro-card {
-    @apply bg-zentro-card rounded-xl shadow-lg border border-white/5 p-4;
+  .card, .zentro-card {
+    @apply bg-surface/40 backdrop-blur-xl rounded-3xl border border-white/5 p-6 shadow-xl;
   }
-  .zentro-btn-primary {
-    @apply bg-zentro-highlight text-white px-6 py-3 rounded-xl font-medium transition-all hover:opacity-90 active:scale-95 flex items-center justify-center gap-2;
+  .btn-primary, .zentro-btn-primary {
+    @apply bg-accent text-white px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-xs transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-accent/20 flex items-center justify-center gap-2;
+  }
+  .input-field {
+    @apply w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-ink placeholder:text-muted focus:outline-none focus:border-accent/50 transition-all;
   }
   .zentro-text-secondary {
-    @apply text-zentro-text-secondary;
+    @apply text-muted;
   }
 }
 
 /* Custom scrollbar for a cleaner look */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: rgba(255, 255, 255, 0.1);
   border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }

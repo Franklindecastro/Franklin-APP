@@ -54,21 +54,21 @@ export const Dashboard = ({ stats, onQuickAdd }: DashboardProps) => {
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="card bg-gradient-to-br from-surface to-accent/10 border-accent/20 p-8 text-center relative overflow-hidden group"
+        className="card bg-gradient-to-br from-surface to-accent/10 border-accent/20 p-6 sm:p-8 text-center relative overflow-hidden group"
       >
         <div className="absolute -right-8 -top-8 w-32 h-32 bg-accent/10 rounded-full blur-3xl group-hover:bg-accent/20 transition-all duration-700" />
         <p className="text-xs font-bold text-muted uppercase tracking-[0.2em] mb-2">Saldo Atual</p>
-        <h2 className={`text-5xl font-black tracking-tighter mb-4 ${stats.totalBalance >= 0 ? 'text-secondary' : 'text-error'}`}>
+        <h2 className={`text-3xl sm:text-5xl font-black tracking-tighter mb-4 ${stats.totalBalance >= 0 ? 'text-secondary' : 'text-error'}`}>
           R$ {stats.totalBalance.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
         </h2>
         <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 rounded-full border border-white/5">
           <TrendingUp size={14} className="text-secondary" />
-          <span className="text-[10px] font-bold text-muted uppercase tracking-wider">Resultado do período selecionado</span>
+          <span className="text-[10px] font-bold text-muted uppercase tracking-wider">Resultado do período</span>
         </div>
       </motion.div>
 
       {/* 3️⃣ Secondary Cards (Side-by-Side) */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -127,20 +127,20 @@ export const Dashboard = ({ stats, onQuickAdd }: DashboardProps) => {
             <AreaChart data={cashFlowData}>
               <defs>
                 <linearGradient id="colorIncome" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10B981" stopOpacity={0.1}/>
-                  <stop offset="95%" stopColor="#10B981" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#00C853" stopOpacity={0.1}/>
+                  <stop offset="95%" stopColor="#00C853" stopOpacity={0}/>
                 </linearGradient>
                 <linearGradient id="colorExpense" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#EF4444" stopOpacity={0.1}/>
-                  <stop offset="95%" stopColor="#EF4444" stopOpacity={0}/>
+                  <stop offset="5%" stopColor="#FF5252" stopOpacity={0.1}/>
+                  <stop offset="95%" stopColor="#FF5252" stopOpacity={0}/>
                 </linearGradient>
               </defs>
               <Tooltip 
-                contentStyle={{ backgroundColor: '#111827', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '10px' }}
+                contentStyle={{ backgroundColor: '#1E2A38', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', fontSize: '10px' }}
                 itemStyle={{ fontWeight: 'bold' }}
               />
-              <Area type="monotone" dataKey="income" stroke="#10B981" strokeWidth={3} fillOpacity={1} fill="url(#colorIncome)" />
-              <Area type="monotone" dataKey="expense" stroke="#EF4444" strokeWidth={3} fillOpacity={1} fill="url(#colorExpense)" />
+              <Area type="monotone" dataKey="income" stroke="#00C853" strokeWidth={3} fillOpacity={1} fill="url(#colorIncome)" />
+              <Area type="monotone" dataKey="expense" stroke="#FF5252" strokeWidth={3} fillOpacity={1} fill="url(#colorExpense)" />
             </AreaChart>
           </ResponsiveContainer>
         </div>

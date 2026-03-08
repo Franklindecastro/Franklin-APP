@@ -45,13 +45,13 @@ export const FlowAnalysis = ({ transactions }: FlowAnalysisProps) => {
       isWithinInterval(new Date(t.date), prev30Days)
     );
 
-    const income = currentTransactions.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0);
-    const expenses = currentTransactions.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0);
+    const income = currentTransactions.filter(t => t.type === TransactionType.REVENUE).reduce((acc, t) => acc + t.amount, 0);
+    const expenses = currentTransactions.filter(t => t.type === TransactionType.EXPENSE).reduce((acc, t) => acc + t.amount, 0);
     const balance = income - expenses;
     const savingsRate = income > 0 ? (balance / income) * 100 : 0;
 
-    const prevIncome = previousTransactions.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0);
-    const prevExpenses = previousTransactions.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0);
+    const prevIncome = previousTransactions.filter(t => t.type === TransactionType.REVENUE).reduce((acc, t) => acc + t.amount, 0);
+    const prevExpenses = previousTransactions.filter(t => t.type === TransactionType.EXPENSE).reduce((acc, t) => acc + t.amount, 0);
     const prevBalance = prevIncome - prevExpenses;
     
     const variation = prevBalance !== 0 ? ((balance - prevBalance) / Math.abs(prevBalance)) * 100 : 0;
@@ -76,8 +76,8 @@ export const FlowAnalysis = ({ transactions }: FlowAnalysisProps) => {
         isWithinInterval(new Date(t.date), { start, end })
       );
       return {
-        income: monthTransactions.filter(t => t.type === 'income').reduce((acc, t) => acc + t.amount, 0),
-        expenses: monthTransactions.filter(t => t.type === 'expense').reduce((acc, t) => acc + t.amount, 0),
+        income: monthTransactions.filter(t => t.type === TransactionType.REVENUE).reduce((acc, t) => acc + t.amount, 0),
+        expenses: monthTransactions.filter(t => t.type === TransactionType.EXPENSE).reduce((acc, t) => acc + t.amount, 0),
       };
     });
 
@@ -106,7 +106,7 @@ export const FlowAnalysis = ({ transactions }: FlowAnalysisProps) => {
 
   // 3. Behavior Analysis
   const behavior = useMemo(() => {
-    const expenseTransactions = transactions.filter(t => t.type === 'expense');
+    const expenseTransactions = transactions.filter(t => t.type === TransactionType.EXPENSE);
     
     // Days of week
     const days = Array(7).fill(0);
@@ -125,10 +125,10 @@ export const FlowAnalysis = ({ transactions }: FlowAnalysisProps) => {
     const dominantCategory = sortedCats[0]?.[0] || 'Nenhuma';
     const dominantPercentage = summary.expenses > 0 ? (sortedCats[0]?.[1] / summary.expenses) * 100 : 0;
 
-    // Recurring (simple check: same description and amount > 1 time)
+    // Recurring (simple check: same note and amount > 1 time)
     const recurringMap: Record<string, number> = {};
     expenseTransactions.forEach(t => {
-      const key = `${t.description}-${t.amount}`;
+      const key = `${t.note}-${t.amount}`;
       recurringMap[key] = (recurringMap[key] || 0) + 1;
     });
     const recurringCount = Object.values(recurringMap).filter(v => v > 1).length;
@@ -145,7 +145,7 @@ export const FlowAnalysis = ({ transactions }: FlowAnalysisProps) => {
   // 4. Zentro Stability Index
   const stabilityIndex = useMemo(() => {
     // Regularity (0-25)
-    const monthsWithIncome = new Set(transactions.filter(t => t.type === 'income').map(t => format(new Date(t.date), 'yyyy-MM'))).size;
+    const monthsWithIncome = new Set(transactions.filter(t => t.type === TransactionType.REVENUE).map(t => format(new Date(t.date), 'yyyy-MM'))).size;
     const regularity = Math.min(25, monthsWithIncome * 8);
 
     // Control (0-25)
@@ -191,7 +191,7 @@ export const FlowAnalysis = ({ transactions }: FlowAnalysisProps) => {
   }, [behavior, trend, summary]);
 
   return (
-    <div className="space-y-6 pb-32 pt-28 px-6 max-w-md mx-auto">
+    <div className="space-y-6 pb-32 pt-6 sm:pt-12 px-4 sm:px-6 max-w-4xl mx-auto">
       {/* 1. Strategic Summary */}
       <motion.div 
         initial={{ opacity: 0, y: 20 }}

@@ -88,60 +88,60 @@ export const Layout = ({
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="px-6 py-6 max-w-md mx-auto"
+          className="px-4 sm:px-6 py-6 max-w-4xl mx-auto w-full"
         >
           {children}
         </motion.div>
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-6 left-6 right-6 h-16 bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex items-center justify-around px-2 z-50">
+      <nav className="fixed bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 h-16 bg-surface/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex items-center justify-around px-2 z-50">
         <button 
           onClick={() => setActiveTab('dashboard')}
-          className={`flex flex-col items-center gap-1 transition-all ${activeTab === 'dashboard' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
+          className={`flex flex-col items-center gap-1 transition-all flex-1 ${activeTab === 'dashboard' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
         >
           <LayoutDashboard size={18} />
-          <span className="text-[9px] font-medium">Início</span>
+          <span className="text-[9px] font-medium hidden xs:block">Início</span>
           {activeTab === 'dashboard' && <motion.div layoutId="nav-indicator" className="w-1 h-1 bg-accent rounded-full mt-0.5" />}
         </button>
         <button 
           onClick={() => setActiveTab('transactions')}
-          className={`flex flex-col items-center gap-1 transition-all ${activeTab === 'transactions' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
+          className={`flex flex-col items-center gap-1 transition-all flex-1 ${activeTab === 'transactions' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
         >
           <ArrowUpRight size={18} />
-          <span className="text-[9px] font-medium">Fluxo</span>
+          <span className="text-[9px] font-medium hidden xs:block">Fluxo</span>
           {activeTab === 'transactions' && <motion.div layoutId="nav-indicator" className="w-1 h-1 bg-accent rounded-full mt-0.5" />}
         </button>
         <button 
           onClick={() => setActiveTab('market')}
-          className={`flex flex-col items-center gap-1 transition-all ${activeTab === 'market' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
+          className={`flex flex-col items-center gap-1 transition-all flex-1 ${activeTab === 'market' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
         >
           <ShoppingCart size={18} />
-          <span className="text-[9px] font-medium">Mercado</span>
+          <span className="text-[9px] font-medium hidden xs:block">Mercado</span>
           {activeTab === 'market' && <motion.div layoutId="nav-indicator" className="w-1 h-1 bg-accent rounded-full mt-0.5" />}
         </button>
         <button 
           onClick={() => setActiveTab('investments')}
-          className={`flex flex-col items-center gap-1 transition-all ${activeTab === 'investments' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
+          className={`flex flex-col items-center gap-1 transition-all flex-1 ${activeTab === 'investments' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
         >
           <TrendingUp size={18} />
-          <span className="text-[9px] font-medium">Ativos</span>
+          <span className="text-[9px] font-medium hidden xs:block">Ativos</span>
           {activeTab === 'investments' && <motion.div layoutId="nav-indicator" className="w-1 h-1 bg-accent rounded-full mt-0.5" />}
         </button>
         <button 
           onClick={() => setActiveTab('reports')}
-          className={`flex flex-col items-center gap-1 transition-all ${activeTab === 'reports' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
+          className={`flex flex-col items-center gap-1 transition-all flex-1 ${activeTab === 'reports' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
         >
           <PieChart size={18} />
-          <span className="text-[9px] font-medium">Análise</span>
+          <span className="text-[9px] font-medium hidden xs:block">Análise</span>
           {activeTab === 'reports' && <motion.div layoutId="nav-indicator" className="w-1 h-1 bg-accent rounded-full mt-0.5" />}
         </button>
         <button 
           onClick={() => setActiveTab('settings')}
-          className={`flex flex-col items-center gap-1 transition-all ${activeTab === 'settings' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
+          className={`flex flex-col items-center gap-1 transition-all flex-1 ${activeTab === 'settings' ? 'text-accent scale-110' : 'text-muted hover:text-ink'}`}
         >
           <User size={18} />
-          <span className="text-[9px] font-medium">Perfil</span>
+          <span className="text-[9px] font-medium hidden xs:block">Perfil</span>
           {activeTab === 'settings' && <motion.div layoutId="nav-indicator" className="w-1 h-1 bg-accent rounded-full mt-0.5" />}
         </button>
       </nav>

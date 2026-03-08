@@ -88,16 +88,16 @@ export const Transactions = ({ transactions, incomeSources, onAdd, onAddSource }
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-end">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Transações</h2>
-          <p className="text-muted">Gerencie suas receitas e despesas em um só lugar.</p>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Transações</h2>
+          <p className="text-sm text-muted">Gerencie suas receitas e despesas em um só lugar.</p>
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 w-full sm:w-auto"
         >
           <Plus size={20} />
           <span>Nova Transação</span>
@@ -122,22 +122,83 @@ export const Transactions = ({ transactions, incomeSources, onAdd, onAddSource }
 
       {/* Transactions List */}
       <div className="card overflow-hidden p-0 border-white/5">
-        <div className="overflow-x-auto">
+        {/* Mobile List View */}
+        <div className="block sm:hidden divide-y divide-white/5">
+          {transactions.map((t) => (
+            <div key={t.id} className="p-4 flex items-center justify-between hover:bg-white/5 transition-all">
+              <div className="text-left">
+                <p className={`text-lg font-black ${t.type === TransactionType.REVENUE ? 'text-secondary' : 'text-error'}`}>
+                  {t.type === TransactionType.REVENUE ? '+' : '-'}R${t.amount.toFixed(2)}
+                </p>
+                {t.note && <p className="text-[10px] text-muted italic truncate max-w-[100px]">{t.note}</p>}
+              </div>
+              <div className="flex items-center gap-3 text-right">
+                <div className="flex flex-col items-end">
+                  <span className="text-sm font-bold">{t.type === TransactionType.REVENUE && t.source ? t.source.name : t.category}</span>
+                  <span className="text-[10px] text-muted uppercase tracking-widest">
+                    {format(t.date, 'dd/MM/yyyy')} • {t.paymentMethod}
+                  </span>
+                </div>
+                {t.type === TransactionType.REVENUE && t.source ? (
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm"
+                    style={{ backgroundColor: t.source.colorHex }}
+                  >
+                    {(() => {
+                      const Icon = mapIcon(t.source.iconName);
+                      return <Icon size={18} />;
+                    })()}
+                  </div>
+                ) : (
+                  <div className={`p-2 rounded-lg ${t.type === TransactionType.REVENUE ? 'bg-secondary/10 text-secondary' : 'bg-error/10 text-error'}`}>
+                    {t.type === TransactionType.REVENUE ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+          {transactions.length === 0 && (
+            <div className="p-12 text-center text-muted">
+              Nenhuma transação encontrada.
+            </div>
+          )}
+        </div>
+
+        {/* Desktop Table View */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-white/5">
-                <th className="px-6 py-4 text-xs font-semibold text-muted uppercase tracking-wider">Data</th>
+                <th className="px-6 py-4 text-xs font-semibold text-muted uppercase tracking-wider">Valor</th>
                 <th className="px-6 py-4 text-xs font-semibold text-muted uppercase tracking-wider">Categoria</th>
                 <th className="px-6 py-4 text-xs font-semibold text-muted uppercase tracking-wider">Método</th>
                 <th className="px-6 py-4 text-xs font-semibold text-muted uppercase tracking-wider">Nota</th>
-                <th className="px-6 py-4 text-xs font-semibold text-muted uppercase tracking-wider text-right">Valor</th>
+                <th className="px-6 py-4 text-xs font-semibold text-muted uppercase tracking-wider text-right">Data</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
               {transactions.map((t) => (
                 <tr key={t.id} className="hover:bg-white/5 transition-all group">
+                  <td className={`px-6 py-4 font-bold ${t.type === TransactionType.REVENUE ? 'text-secondary' : 'text-error'}`}>
+                    {t.type === TransactionType.REVENUE ? '+' : '-'}R${t.amount.toFixed(2)}
+                  </td>
                   <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
+                    <span className="text-sm px-3 py-1 bg-white/5 rounded-full font-medium">{t.category}</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-sm text-muted">{t.paymentMethod}</span>
+                  </td>
+                  <td className="px-6 py-4">
+                    <span className="text-sm text-muted italic">{t.note || '-'}</span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <div className="flex items-center justify-end gap-3">
+                      <div className="flex flex-col items-end">
+                        <span className="text-sm font-bold">{t.type === TransactionType.REVENUE && t.source ? t.source.name : format(t.date, 'dd/MM/yyyy')}</span>
+                        {t.type === TransactionType.REVENUE && t.source && (
+                          <span className="text-[10px] text-muted uppercase tracking-widest">{format(t.date, 'dd/MM/yyyy')}</span>
+                        )}
+                      </div>
                       {t.type === TransactionType.REVENUE && t.source ? (
                         <div 
                           className="w-10 h-10 rounded-full flex items-center justify-center text-white shadow-sm"
@@ -153,25 +214,7 @@ export const Transactions = ({ transactions, incomeSources, onAdd, onAddSource }
                           {t.type === TransactionType.REVENUE ? <TrendingUp size={16} /> : <TrendingDown size={16} />}
                         </div>
                       )}
-                      <div className="flex flex-col">
-                        <span className="text-sm font-bold">{t.type === TransactionType.REVENUE && t.source ? t.source.name : format(t.date, 'dd/MM/yyyy')}</span>
-                        {t.type === TransactionType.REVENUE && t.source && (
-                          <span className="text-[10px] text-muted uppercase tracking-widest">{format(t.date, 'dd/MM/yyyy')}</span>
-                        )}
-                      </div>
                     </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm px-3 py-1 bg-white/5 rounded-full font-medium">{t.category}</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-muted">{t.paymentMethod}</span>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="text-sm text-muted italic">{t.note || '-'}</span>
-                  </td>
-                  <td className={`px-6 py-4 text-right font-bold ${t.type === TransactionType.REVENUE ? 'text-secondary' : 'text-error'}`}>
-                    {t.type === TransactionType.REVENUE ? '+' : '-'}R${t.amount.toFixed(2)}
                   </td>
                 </tr>
               ))}

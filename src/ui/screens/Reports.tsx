@@ -47,7 +47,7 @@ export const Reports = ({ stats }: ReportsProps) => {
     
     // Header
     doc.setFontSize(22);
-    doc.setTextColor(30, 42, 56); // Primary color
+    doc.setTextColor(30, 42, 56); // Primary color (#1E2A38)
     doc.text('MoneyFlowPro - Relatório Mensal', 14, 20);
     
     doc.setFontSize(12);
@@ -95,16 +95,16 @@ export const Reports = ({ stats }: ReportsProps) => {
     : { name: 'Nenhuma', value: 0 };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-end">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Relatórios Financeiros</h2>
-          <p className="text-muted">Analise seus hábitos de gastos e tendências.</p>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Relatórios Financeiros</h2>
+          <p className="text-sm text-muted">Analise seus hábitos de gastos e tendências.</p>
         </div>
         <button 
           onClick={exportToPDF}
-          className="btn-primary flex items-center gap-2"
+          className="btn-primary flex items-center gap-2 w-full sm:w-auto"
         >
           <Download size={20} />
           <span>Exportar PDF</span>
@@ -142,12 +142,12 @@ export const Reports = ({ stats }: ReportsProps) => {
               <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#8E9299', fontSize: 10}} />
               <YAxis axisLine={false} tickLine={false} tick={{fill: '#8E9299', fontSize: 10}} />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#111827', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
+                contentStyle={{ backgroundColor: '#1E2A38', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
                 itemStyle={{ color: '#E5E7EB' }}
               />
               <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                 {comparativeData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={index === 0 ? '#10B981' : '#EF4444'} />
+                  <Cell key={`cell-${index}`} fill={index === 0 ? '#00C853' : '#FF5252'} />
                 ))}
               </Bar>
             </BarChart>
@@ -195,10 +195,10 @@ export const Reports = ({ stats }: ReportsProps) => {
                 width={80}
               />
               <Tooltip 
-                contentStyle={{ backgroundColor: '#111827', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
+                contentStyle={{ backgroundColor: '#1E2A38', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
                 itemStyle={{ color: '#E5E7EB' }}
               />
-              <Bar dataKey="value" fill="#5B21B6" radius={[0, 8, 8, 0]} />
+              <Bar dataKey="value" fill="#7C3AED" radius={[0, 8, 8, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>

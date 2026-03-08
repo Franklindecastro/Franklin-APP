@@ -74,16 +74,16 @@ export const Investments = ({ investments, onAdd, totalInvested, totalProfit }: 
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Header */}
-      <div className="flex justify-between items-end">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Investimentos</h2>
-          <p className="text-muted">Acompanhe seus ativos e veja seu patrimônio crescer.</p>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">Investimentos</h2>
+          <p className="text-sm text-muted">Acompanhe seus ativos e veja seu patrimônio crescer.</p>
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="btn-primary flex items-center gap-2 shadow-lg shadow-primary/20"
+          className="btn-primary flex items-center gap-2 w-full sm:w-auto"
         >
           <Plus size={20} />
           <span>Novo Investimento</span>
@@ -191,11 +191,11 @@ export const Investments = ({ investments, onAdd, totalInvested, totalProfit }: 
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
-              className="relative bg-white w-full max-w-lg rounded-2xl shadow-2xl p-8 overflow-hidden"
+              className="relative bg-surface w-full max-w-lg rounded-2xl shadow-2xl p-6 sm:p-8 overflow-hidden border border-white/10"
             >
               <div className="flex justify-between items-center mb-8">
                 <h3 className="text-2xl font-bold">Novo Investimento</h3>
-                <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-black/5 rounded-full transition-all">
+                <button onClick={() => setIsModalOpen(false)} className="p-2 hover:bg-white/5 rounded-full transition-all">
                   <X size={24} />
                 </button>
               </div>
